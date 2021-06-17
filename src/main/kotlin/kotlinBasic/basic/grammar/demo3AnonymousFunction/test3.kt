@@ -1,8 +1,7 @@
-package basic.grammar.demo3AnonymousFunction
+package kotlinBasic.basic.grammar.demo3AnonymousFunction
 
-import basic.grammar.demo1.Country
-import basic.grammar.demo1.CountryApp
-import basic.grammar.demo1.CountryTest
+import kotlinBasic.basic.grammar.demo1.Country
+import kotlinBasic.basic.grammar.demo1.CountryApp
 
 /**
  * Created by chenjinxin on 2021/6/11 下午3:24

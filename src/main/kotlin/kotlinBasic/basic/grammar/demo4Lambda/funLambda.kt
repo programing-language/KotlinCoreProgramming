@@ -1,4 +1,4 @@
-package basic.grammar.demo4Lambda
+package kotlinBasic.basic.grammar.demo4Lambda
 
 /**
  * Created by chenjinxin on 2021/6/15 下午5:31

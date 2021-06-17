@@ -1,4 +1,4 @@
-package basic.grammar.enumWhen
+package kotlinBasic.basic.grammar.enumWhen
 
 /**
  * Created by chenjinxin on 2021/6/17 上午10:42

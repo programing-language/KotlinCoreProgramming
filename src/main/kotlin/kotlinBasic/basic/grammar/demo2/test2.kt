@@ -1,4 +1,4 @@
-package basic.grammar.demo2
+package kotlinBasic.basic.grammar.demo2
 
 /**
  * Created by chenjinxin on 2021/6/11 下午3:19

@@ -1,8 +1,8 @@
-package basic.grammar.demo2
+package kotlinBasic.basic.grammar.demo2
 
-import basic.grammar.demo1.Country
-import basic.grammar.demo1.CountryApp
-import basic.grammar.demo1.CountryTest
+import kotlinBasic.basic.grammar.demo1.Country
+import kotlinBasic.basic.grammar.demo1.CountryApp
+import kotlinBasic.basic.grammar.demo1.CountryTest
 
 /**
  * Created by chenjinxin on 2021/6/11 下午3:24
