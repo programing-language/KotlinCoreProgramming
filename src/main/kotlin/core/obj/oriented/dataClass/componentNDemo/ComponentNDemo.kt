@@ -1,4 +1,4 @@
-package core.obj.oriented.dataClass.ComponentNDemo
+package core.obj.oriented.dataClass.componentNDemo
 
 import core.obj.oriented.dataClass.copyDemo.Bird
 

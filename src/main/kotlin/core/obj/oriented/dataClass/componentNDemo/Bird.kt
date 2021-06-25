@@ -1,4 +1,4 @@
-package core.obj.oriented.dataClass.ComponentNDemo
+package core.obj.oriented.dataClass.componentNDemo
 
 /**
  * Created by chenjinxin on 2021/6/25 下午3:32
