@@ -12,7 +12,15 @@ fun test() {
     println(preceed?.call(_1, _1) == Nat.Companion.Zero)
 }
 
-class Person(val name: String, val age: Int, var address: String)
+data class Person(val name: String, val age: Int, var address: String) {
+    fun friendsName(): List<String> {
+        return listOf("Yison", "Jilen")
+    }
+
+    fun <A> get(a: A): A {
+        return a
+    }
+}
 
 fun KMutablePropertyShow() {
     val p = Person("疾跑", 8, "GuangZhou")
