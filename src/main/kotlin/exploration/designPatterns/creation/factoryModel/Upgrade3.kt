@@ -7,11 +7,16 @@ interface Computer2 {
     val cpu: String
 
     companion object {
-
+        operator fun invoke(type: ComputerType): Computer {
+            return when(type){
+                ComputerType.PC -> PC()
+                ComputerType.Server -> Server()
+            }
+        }
     }
 }
 
 fun main() {
-    val comp = ComputerFactory3(ComputerType.Server)
+    val comp = Computer2(ComputerType.Server)
     println(comp.cpu)
 }
