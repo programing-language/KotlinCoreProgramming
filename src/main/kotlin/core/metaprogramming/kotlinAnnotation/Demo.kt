@@ -1,7 +1,5 @@
 package core.metaprogramming.kotlinAnnotation
 
-import kotlin.reflect.full.declaredMemberProperties
-
 /**
  * Created by ChenJinXin on 2021/7/8 上午11:23
  */
@@ -20,7 +18,7 @@ data class Hero(
 )
 
 fun main() {
-        val cacheAnnotion = Hero::class.annotations.find { it is Cache }as Cache?
-        println("namespace ${cacheAnnotion?.namespace}")
-        println("expires ${cacheAnnotion?.expires}")
+    val cacheAnnotion = Hero::class.annotations.find { it is Cache } as Cache?
+    println("namespace ${cacheAnnotion?.namespace}")
+    println("expires ${cacheAnnotion?.expires}")
 }
