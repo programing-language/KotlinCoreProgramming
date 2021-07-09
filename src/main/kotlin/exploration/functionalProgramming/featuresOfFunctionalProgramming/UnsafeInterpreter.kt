@@ -1,4 +1,4 @@
-package exploration.functionalProgramming
+package exploration.functionalProgramming.featuresOfFunctionalProgramming
 
 /**
  * Created by ChenJinXin on 2021/7/9 下午5:44
@@ -21,5 +21,5 @@ fun unsafeInterpreter(str: List<Format>) {
 fun main() {
     val format1 = Print("format1")
     val format2 = Print("format2")
-    unsafeInterpreter(listOf(format1,Newline,format2))
+    unsafeInterpreter(listOf(format1, Newline, format2))
 }
