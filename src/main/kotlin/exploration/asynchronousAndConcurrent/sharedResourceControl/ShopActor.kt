@@ -10,19 +10,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import java.util.*
 
-/**
- * Created by ChenJinXin on 2021/7/21 下午5:31
- */
-
-sealed class Action {
-    data class BuyOrInit(val id: Long, val userId: Long, val amount: Long, val shopName: String, val stocks: Map<Long, Int>) : Action()
-    data class Buy(val id: Long, val userId: Long, val amount: Long) : Action()
-    data class GetStock(val id: Long) : Action()
-    data class GetStockOrInit(val id: Long, val shopName: String, val stocks: Map<Long, Int>) : Action()
-}
-
-
-class ShopActor(private val stocks: HashMap<Long, Int>) : UntypedAbstractActor() {
+class ShopActor(val stocks: HashMap<Long, Int>) : UntypedAbstractActor() {
     var orderNumber = 1L
     override fun onReceive(message: Any?) {
         when (message) {
@@ -37,21 +25,28 @@ class ShopActor(private val stocks: HashMap<Long, Int>) : UntypedAbstractActor()
                 }
             }
             is Action.GetStock -> {
-                sender.tell(stocks[message.id], self)
+                sender.tell(stocks.get(message.id), self)
             }
         }
     }
 }
 
-class ManageActor : UntypedAbstractActor() { //管理和初始化ShopActor
+sealed class Action {
+    data class BuyOrInit(val id: Long, val userId: Long, val amount: Long, val shopName: String, val stocks: Map<Long, Int>) : Action()
+    data class Buy(val id: Long, val userId: Long, val amount: Long) : Action()
+    data class GetStock(val id: Long) : Action()
+    data class GetStockOrInit(val id: Long, val shopName: String, val stocks: Map<Long, Int>) : Action()
+}
+
+class ManageActor : UntypedAbstractActor() {
     override fun onReceive(message: Any?) {
         when (message) {
-            is Action.BuyOrInit -> getOrInit(message.shopName, message.stocks).forward(Action.Buy(message.id, message.userId, message.amount), context)
-            is Action.GetStockOrInit -> getOrInit(message.shopName, message.stocks).forward(Action.GetStock(message.id), context)
+            is Action.BuyOrInit -> getOrInit(message.shopName,message.stocks).forward(Action.Buy(message.id, message.userId, message.amount), context)
+            is Action.GetStockOrInit -> getOrInit(message.shopName,message.stocks).forward(Action.GetStock(message.id), context)
         }
     }
 
-    private fun getOrInit(shopName: String, stocks: Map<Long, Int>): ActorRef {
+    fun getOrInit(shopName: String, stocks: Map<Long, Int>): ActorRef {
         return context.findChild("shop-actor-${shopName}").orElseGet { context.actorOf(Props.create(ShopActor::class.java, stocks), "shop-actor-${shopName}") }
     }
 
@@ -60,18 +55,18 @@ class ManageActor : UntypedAbstractActor() { //管理和初始化ShopActor
 fun main(args: Array<String>) {
     val stocksA = hashMapOf(Pair(1L, 10), Pair(2L, 5), Pair(3L, 20))
     val stocksB = hashMapOf(Pair(1L, 15), Pair(2L, 8), Pair(3L, 30))
-    val actorSystem = ActorSystem.apply("shop-system") //初始化Actor系统
+    val actorSystem = ActorSystem.apply("shop-system") //
     val manageActor = actorSystem.actorOf(Props.create(ManageActor::class.java), "manage-actor")
     val timeout = Timeout(Duration.create(3, "seconds"))
 
     val resA = Patterns.ask(manageActor, Action.GetStockOrInit(1L, "A", stocksA), timeout)
     val stock = Await.result(resA, timeout.duration())
-    println("the stock is $stock")
+    println("the stock is ${stock}")
 
     val resB = Patterns.ask(manageActor, Action.BuyOrInit(2L, 1L, 1,"B", stocksB), timeout)
     val orderNumber = Await.result(resB, timeout.duration())
-    println("the orderNumber is $orderNumber")
+    println("the orderNumber is ${orderNumber}")
 
-    //the stock is 10
-    //the orderNumber is 1
+
 }
+

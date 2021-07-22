@@ -7,7 +7,7 @@ import kotlin.concurrent.withLock
 /**
  * Created by ChenJinXin on 2021/7/21 下午4:49
  */
-class Shop {
+class Shop2 {
     private val goods = hashMapOf<Long, Int>()
 
     init {
@@ -69,8 +69,8 @@ class Shop {
 fun main() {
     val lock: Lock = ReentrantLock()
 
-    Shop().withLock(lock) { Shop().buyGoods4(1) }
+    Shop2().withLock(lock) { Shop2().buyGoods4(1) }
 
     //Kotlin在类库中提供了相应的方法。
-    lock.withLock { Shop().buyGoods4(1) }
+    lock.withLock { Shop2().buyGoods4(1) }
 }
